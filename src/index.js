@@ -8,12 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
   let stocks = ["GE","BB","AMD","NFLX","GOOGL"]
   stocks.forEach(function(symbol){
       app.adapter.getStock(symbol).then(stock => {
-      // debugger
-      //I want to make the below function a class function, must organize BETTER
-      // companyList.append(renderCompany())
       companyList.append(renderCard(stock))
     })
   })
+  let graph = new Graph("GE")
+  graph.renderGraph()
 })
 
 function renderCard(data){

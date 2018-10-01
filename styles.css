@@ -67,3 +67,8 @@ button.release {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }
+
+.line-chart
+    {
+        border: 1px solid lightgray;
+    }
