@@ -7,11 +7,19 @@ class App {
     this.createCompanies = this.createCompanies.bind(this);
     this.addCompanies = this.addCompanies.bind(this);
   }
+
   attachEventListeners() {
     document.querySelector('#company-list').addEventListener('click', this.handleBuyClick);
     document.querySelector('#buy-stock-form').addEventListener('submit', this.handleBuyFormSubmit)
   }
 
+
+  createMyCompanies(companies){
+    companies.forEach(company => {
+      const newCompany = new Company(company)
+    })
+    this.addCompanies()
+  }
 
   createCompanies(companies){
     companies.forEach(company => {
