@@ -13,6 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
   })
   let graph = new Graph("GE")
   graph.renderGraph()
+
+  $('.ui.modal')
+  .modal('show')
+;
 })
 
 function renderCard(data){
