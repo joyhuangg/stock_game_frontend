@@ -28,19 +28,35 @@ class Company{
     // <h4>low :${data["quote"]["low"]}</h4>
 
     let new_card = document.createElement("div")
-    new_card.className += "card"
+    new_card.className += "card four wide column" 
     // let most_recent = data["quote"]["latestPrice"]
-    new_card.innerHTML =`<h1>${this.name} (${this.symbol})</h1>
+    new_card.innerHTML =`<h3>${this.name} (${this.symbol})</h3>
     <button data-id=${this.id}>Buy</button>
     <button data-id=${this.id}>Sell</button>
-    <h3>Price: $${this.price}</h2>
-    <h3>${this.description}</h3>
+    <h5>Price: $${this.price}</h5>
+    <h5>${this.description}</h5>
 
     <p>News :${this.news}</p>
     `
 
-    let h1 = new_card.querySelector("h1")
-    h1.addEventListener("click", () =>{
+    let h = new_card.querySelector("h3")
+    h.addEventListener("click", () =>{
+
+      //may need to refactor this
+      let c_modal = document.querySelector("#company")
+      c_modal.querySelector(".header").innerHTML = `${this.name} (${this.symbol})`
+      c_modal.querySelector(".description").innerHTML =`
+
+      <br>${this.description}
+      <br>current price:${this.price}
+      <br>name:${this.name}
+      <br>symbol:${this.symbol}
+      <br>highest Price:${this.high}
+      <br>lowest Price:${this.low}
+      <br>open price:${this.open_price}
+      <br>close price:${this.close_price}
+      `
+
       let graph = new Graph(this.symbol)
       graph.renderGraph()
       $('#company').modal('show');

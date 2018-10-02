@@ -1,3 +1,7 @@
+$(window).ready(function() {
+  $('#loading').hide();
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   const app = new App();
   let companyList = document.querySelector("#company-list")
@@ -7,11 +11,12 @@ document.addEventListener('DOMContentLoaded', () => {
   let sellForm = document.querySelector("#sell-stock-form")
 
   //SWAP THIS OUT LATER WITH SIGNED IN USERS, not really working
-  let user;
   User.findByUsername("Dummy")
     .then((foundUser) => {
-      user = foundUser
+      let user = new User(foundUser)
+      user.renderUserProfile();
     })
+
 
 
   app.attachEventListeners();
@@ -28,14 +33,14 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector("#title").addEventListener("click", ()=>{
     $('.ui.labeled.icon.sidebar').sidebar('toggle');
   })
-  document.querySelector("#login_button").addEventListener("click", ()=>{
-    $('#login_modal').modal('show');
-  })
-  document.querySelector("#signup_button").addEventListener("click", ()=>{
-    $('#signup_modal').modal('show');
-  })
   document.querySelector("#signup_link").addEventListener("click", ()=>{
     $('#signup_modal').modal('show');
+  })
+  document.querySelector("#sign-up").addEventListener("click", ()=>{
+    $('#signup_modal').modal('show');
+  })
+  document.querySelector("#log-in").addEventListener("click", ()=>{
+    $('#login_modal').modal('show');
   })
 
 })

@@ -26,13 +26,10 @@
 
     <header class="ui fixed main menu">
       <div class="ui container">
-        <h1 id="title">Stocks</h1>
+        <h1 id="title">Stock Game</h1>
         <div class="right menu">
           <div class="item">
-            <a class="ui button" id="login_button">Log in</a>
-          </div>
-          <div class="item">
-            <a class="ui primary button" id="signup_button">Sign Up</a>
+            Welcome:
           </div>
         </div>
       </div>
@@ -42,8 +39,26 @@
       <div id="profile">
 
       </div>
-      <div id="company-list">
+      <div id="company-list" class="ui grid">
       </div>
+
+      <!-- <div class="scrollmenu">
+        <a href="#home">Home</a>
+        <a href="#news">News</a>
+        <a href="#contact">Contact</a>
+        <a href="#about">About</a>
+        <a href="#support">Support</a>
+        <a href="#blog">Blog</a>
+        <a href="#tools">Tools</a>
+        <a href="#base">Base</a>
+        <a href="#custom">Custom</a>
+        <a href="#more">More</a>
+        <a href="#logo">Logo</a>
+        <a href="#friends">Friends</a>
+        <a href="#partners">Partners</a>
+        <a href="#people">People</a>
+        <a href="#work">Work</a>
+      </div> -->
 
       <div id="buy-stock-form", class="container">
       </div>
@@ -52,15 +67,23 @@
       </div>
       <!-- sidebar -->
       <div id="sidebar" class="ui left demo vertical inverted sidebar labeled icon menu">
-        <a class="item">
-          <i class="home icon"></i>
+        <a id="home" class="item">
+          <i class="id home icon"></i>
           Home
         </a>
-        <a class="item">
-          <i class="block layout icon"></i>
-          Topics
+        <a id="log-in" class="item">
+          <i class="id badge outline icon"></i>
+          Log In
         </a>
-        <a class="item">
+        <a id="sign-up" class="item">
+          <i class="user plus icon"></i>
+          Sign Up
+        </a>
+        <a id="sign-out" class="item">
+          <i class="sign out icon"></i>
+          Sign Out
+        </a>
+        <a id="friends" class="item">
           <i class="smile icon"></i>
           Friends
         </a>
@@ -81,22 +104,15 @@
               <div class="ui header">We've auto-chosen a profile image for you.</div>
               <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
               <p>Is it okay to use this photo?</p>
-              <p>Is it okay to use this photo?</p>
-              <p>Is it okay to use this photo?</p>
-              <p>Is it okay to use this photo?</p>
-              <p>Is it okay to use this photo?</p>
-              <p>Is it okay to use this photo?</p>
-              <p>Is it okay to use this photo?</p>
-              <p>Is it okay to use this photo?</p>
             </div>
             <svg></svg>
           </div>
           <div class="actions">
             <div class="ui black deny button">
-              Nope
+              Nope?
             </div>
             <div class="ui positive right labeled icon button">
-              Yep, that's me
+              Buy Stock?
               <i class="checkmark icon"></i>
             </div>
           </div>
@@ -225,6 +241,9 @@
         </div>
       </div>
     </footer>
+
+    <div id="loading"></div>
+
   </body>
 
 </html>

@@ -30,7 +30,8 @@ div.card {
   box-shadow: 10px 10px grey;
   padding: 10px;
   border-radius: 10px;
-  margin: 10px
+  margin: 10px;
+
 }
 
 p {
@@ -57,16 +58,12 @@ button.release {
   background-color: #E1332D;
 }
 
-@media only screen and (min-width: 500px) {
-  main {
-    grid-template-columns: 1fr 1fr;
-  }
-}
 
-@media only screen and (min-width: 850px) {
-  main {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-  }
+#loading {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url('./Hourglass.gif') no-repeat center center;
 }
 
 
@@ -172,3 +169,14 @@ button.release {
         width: 100%;
     }
 } */
+
+
+.scrolling-wrapper-flexbox {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+
+  .card {
+    flex: 0 0 auto;
+  }
+}
