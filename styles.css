@@ -69,7 +69,9 @@ button.release {
   }
 }
 
-
+#profile{
+  background-color: #FFE8FC;
+}
 /* * {
     box-sizing: border-box;
 } */

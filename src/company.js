@@ -16,6 +16,7 @@ class Company{
     this.symbol = data.symbol
     this.high = data.high
     this.low = data.low
+    this.news = data.news
     this.open_price = data.open_price
     this.close_price = data.close_price
     this.adapter = new Adapter()
