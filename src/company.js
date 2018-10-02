@@ -38,6 +38,16 @@ class Company{
 
     <p>News :${this.news}</p>
     `
+
+    let h1 = new_card.querySelector("h1")
+    h1.addEventListener("click", () =>{
+      let graph = new Graph(this.symbol)
+      graph.renderGraph()
+      $('#company').modal('show');
+
+    })
+
+
     return new_card
   }
 

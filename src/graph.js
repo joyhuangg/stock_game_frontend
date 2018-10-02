@@ -6,6 +6,7 @@ class Graph{
   }
 
   renderGraph(){
+    document.querySelector("svg").innerHTML = ""
     let api = `https://api.iextrading.com/1.0/stock/${this.symbol}/batch?types=chart`
     fetch(api)
        .then(response => { return response.json(); })

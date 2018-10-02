@@ -17,7 +17,6 @@ class StockCard{
   }
 
   renderCard(data){
-    debugger
     let new_card = document.createElement("div")
     new_card.className += "card"
     let most_recent = data["quote"]["latestPrice"]
@@ -27,6 +26,7 @@ class StockCard{
     <h4>low :${data["quote"]["low"]}</h4>
     <h5>news :${data["news"][0]["headline"]}</h5>
     `
+    
     return new_card
   }
 }

@@ -19,7 +19,7 @@ main {
   grid-template-columns: 1fr;
   grid-template-rows: auto;
   grid-gap: 20px;
-  padding-top: 10px;
+  padding-top: 50px;
   padding-bottom: 30px;
 }
 
@@ -68,20 +68,6 @@ button.release {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }
-
-
-form{
-
-    border-radius: 5px;
-    background-color: #C5FFFF;
-    padding: 20px;
-    box-shadow: 10px 10px grey;
-
-}
-
-
-
-
 
 
 /* * {
