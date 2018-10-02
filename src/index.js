@@ -19,6 +19,21 @@ document.addEventListener('DOMContentLoaded', () => {
   app.adapter.fetchMyCompanies().then(app.createCompanies)
 
 
+  // let stocks = ["GE","BB","AMD","NFLX","GOOGL"]
+  // stocks.forEach(function(symbol){
+  //     app.adapter.getStock(symbol).then(stock => {
+  //     companyList.append(renderCard(stock))
+  //   })
+  // })
+  let graph = new Graph("GE")
+  graph.renderGraph()
+
+  $('.ui.modal')
+  .modal('show')
+;
+})
+
+
   //change this later to be the user's stocks
   /*
 
@@ -66,6 +81,3 @@ document.addEventListener('DOMContentLoaded', () => {
   //   })
   //
   // })
-
-
-})

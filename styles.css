@@ -69,6 +69,7 @@ button.release {
   }
 }
 
+
 form{
 
     border-radius: 5px;
@@ -185,3 +186,8 @@ form{
         width: 100%;
     }
 } */
+
+.line-chart
+    {
+        border: 1px solid lightgray;
+    }

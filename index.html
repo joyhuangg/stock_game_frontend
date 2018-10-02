@@ -5,6 +5,14 @@
     <title>Stock Game</title>
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+    <script src="semantic/dist/semantic.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="src/graph.js" charset="utf-8"></script>
     <script src="src/adapter.js" charset="utf-8"></script>
     <script src="src/app.js" charset="utf-8"></script>
     <script src="src/user.js" charset="utf-8"></script>
@@ -34,11 +42,80 @@
 
       <div id="sell-stock-form", class="container">
       </div>
+
+      <svg></svg>
+
+      <div class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">
+          Profile Picture
+        </div>
+        <div class="scrolling content">
+          <div class="image content">
+            <div class="ui medium image">
+              <img src="https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?cs=srgb&dl=beauty-bloom-blue-67636.jpg&fm=jpg">
+            </div>
+            <div class="description">
+              <div class="ui header">We've auto-chosen a profile image for you.</div>
+              <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+              <p>Is it okay to use this photo?</p>
+            </div>
+          </div>
+          <div class="actions">
+            <div class="ui black deny button">
+              Nope
+            </div>
+            <div class="ui positive right labeled icon button">
+              Yep, that's me
+              <i class="checkmark icon"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
     </main>
 
-
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
   </body>
+  <script>
+  $('.ui.longer.modal')
+    .modal('show');
+  </script>
 </html>
