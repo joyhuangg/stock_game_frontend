@@ -27,10 +27,8 @@ class App {
   }
 
   createCompanies(companies){
-    companies.data.forEach(company => {
-      let companyAttr = company.attributes
-      companyAttr['id'] = parseInt(company.id)
-      const newCompany = new Company(companyAttr)
+    companies.forEach(company => {
+      const newCompany = new Company(company)
     })
     this.addCompanies()
   }
@@ -61,7 +59,7 @@ class App {
     const id = parseInt(e.target.dataset.id);
     const company = Company.findById(id);
     const quantity = parseInt(e.target.querySelector('input').value);
-    
+
     const bodyJSON = { quantity };
     this.adapter.postStockCard(bodyJSON).then(newStock => console.log(newStock));
 
