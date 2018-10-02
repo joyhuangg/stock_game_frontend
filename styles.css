@@ -66,7 +66,9 @@ button.release {
     background: url('./Hourglass.gif') no-repeat center center;
 }
 
-
+#profile{
+  background-color: #FFE8FC;
+}
 /* * {
     box-sizing: border-box;
 } */

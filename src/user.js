@@ -9,6 +9,7 @@ class User{
     this.username = data.username
     this.money = data.money
     this.stock_cards = data.stock_cards
+    this.companies = data.companies
     this.adapter = new Adapter()
     User.all.push(this)
   }
@@ -21,6 +22,10 @@ class User{
       })
   }
 
+  hasCompany(company){
+    return this.companies.map(function(existing_company) {return existing_company.id}).includes(company.id)
+  }
+
   renderUserProfile(){
     let profileDiv = document.querySelector("#profile")
     let toAppend = `
@@ -28,12 +33,22 @@ class User{
       <h2>${this.username}</h2>
       <h3>Balance: $${this.money}</h3>
     `
-    // this.stock_cards.forEach(function(stock){
+
+    profileDiv.innerHTML = toAppend
+    this.adapter.getUser(this.id)
+      .then((user) => {
+        user.cards.forEach(function(stock){
+          let stockObj = new StockCard(stock).renderCard()
+          profileDiv.append(stockObj)
+        })
+      })
+    // this.companies.forEach(function(company){
     //   debugger
+
+
     //   // will be something like let stockObj = new StockCard(stock)
     //   //then add to toAppend string
     // })
-    profileDiv.innerHTML = toAppend
 
   }
 
