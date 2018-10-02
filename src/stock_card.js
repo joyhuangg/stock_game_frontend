@@ -1,12 +1,23 @@
+// t.integer "user_id"
+// t.integer "company_id"
+// t.float "quantity"
+// t.float "buy_price"
+// t.float "sell_price"
+
+
 class StockCard{
-  constructor(data, adapter){
-      this.adapter = adapter
+  constructor(data){
+      this.adapter = new Adapter()
       this.user_id = data.user_id
       this.company_id = data.company_id
+      this.quantity = data.quantity
+      this.buy_price = data.buy_price
+      this.sell_price = data.sell_price
       StockCard.all.push(this)
   }
 
   renderCard(data){
+    debugger
     let new_card = document.createElement("div")
     new_card.className += "card"
     let most_recent = data["quote"]["latestPrice"]
