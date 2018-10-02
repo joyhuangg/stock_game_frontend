@@ -17,9 +17,24 @@ class User{
     this.adapter = new Adapter()
     return this.adapter.getUsers()
     .then(users => {
-        return users.data.find( user => user.attributes.username === username)
-        debugger
+        return users.find( user => user.username === username)
       })
+  }
+
+  renderUserProfile(){
+    let profileDiv = document.querySelector("#profile")
+    let toAppend = `
+      <h1>Welcome ${this.name}</h1>
+      <h2>${this.username}</h2>
+      <h3>Balance: $${this.money}</h3>
+    `
+    // this.stock_cards.forEach(function(stock){
+    //   debugger
+    //   // will be something like let stockObj = new StockCard(stock)
+    //   //then add to toAppend string
+    // })
+    profileDiv.innerHTML = toAppend
+
   }
 
 }

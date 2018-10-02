@@ -79,6 +79,9 @@ form{
 
 }
 
+.line-chart{
+        border: 1px solid lightgray;
+}
 
 
 
@@ -186,8 +189,3 @@ form{
         width: 100%;
     }
 } */
-
-.line-chart
-    {
-        border: 1px solid lightgray;
-    }

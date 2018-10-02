@@ -7,11 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
   let sellForm = document.querySelector("#sell-stock-form")
 
   //SWAP THIS OUT LATER WITH SIGNED IN USERS, not really working
-  let user;
   User.findByUsername("Dummy")
     .then((foundUser) => {
-      user = foundUser
+      let user = new User(foundUser)
+      user.renderUserProfile();
     })
+
 
 
   app.attachEventListeners();
@@ -31,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
   $('.ui.modal')
   .modal('show')
 ;
-})
+
 
 
   //change this later to be the user's stocks
@@ -81,3 +82,5 @@ document.addEventListener('DOMContentLoaded', () => {
   //   })
   //
   // })
+
+  })
