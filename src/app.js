@@ -8,8 +8,8 @@ class App {
     this.handleSellFormSubmit = this.handleSellFormSubmit.bind(this)
     this.createCompanies = this.createCompanies.bind(this);
     this.addCompanies = this.addCompanies.bind(this);
-    this.createStocks = this.createStocks.bind(this)
-    this.addStocks = this.addStocks.bind(this)
+    this.createStock = this.createStock.bind(this)
+    this.addStock = this.addStock.bind(this)
     this.user = user
   }
 
@@ -18,15 +18,6 @@ class App {
     document.querySelector('#company-list').addEventListener('click', this.handleCompanyClick);
     document.querySelector('#buy-stock-form').addEventListener('submit', this.handleBuyFormSubmit)
     document.querySelector('#profile').addEventListener('click', this.handleProfileClick)
-  }
-
-  createStocks(stocks){
-    debugger
-
-  }
-
-  addStocks(){
-    debugger
   }
 
   createCompanies(companies){
@@ -67,7 +58,19 @@ class App {
 
   }
 
-// MUST MAKE IT SO THAT USERS WITHOUT ENOUGH BALANCE CANNOT BUY, MUST ADD DEDUCT FROM BALANCE
+  createStock(stock){
+    this.adapter.postStockCard(stock)
+    .then(this.addStock);
+  }
+
+  addStock(stockObj){
+    let stock = new StockCard(stockObj)
+    this.user.stock_cards.push(stock)
+    let profile = document.querySelector("#profile")
+    profile.append(stock.renderCard())
+  }
+
+// MUST MAKE IT SO THAT USERS WITHOUT ENOUGH BALANCE CANNOT BUY, MUST DEDUCT FROM BALANCE
   handleBuyFormSubmit(e){
     e.preventDefault();
     const id = parseInt(e.target.dataset.id);
@@ -76,7 +79,7 @@ class App {
     const quantity = parseInt(e.target.querySelector('input').value);
     const buy_price = company.price
     let stocks = user.stock_cards
-
+    debugger
     // condition in which user has stock already, much send patch request
     if (this.user.hasCompany(company)){
       this.adapter.getStockCards()
@@ -87,14 +90,8 @@ class App {
     }
     // condition in which user does not have stock, send post request
     else{
-      const bodyJSON = { quantity, company_id: company.id, user_id: user.id, buy_price};
-      this.adapter.postStockCard(bodyJSON)
-      .then(newStock => {
-        let stock = new StockCard(newStock)
-        let profile = document.querySelector("#profile")
-        debugger
-        profile.append(stock.renderCard())
-      });
+      const stock = { quantity, company_id: company.id, user_id: user.id, buy_price};
+      this.createStock(stock)
     }
     e.target.parentElement.innerHTML = ''
   }
