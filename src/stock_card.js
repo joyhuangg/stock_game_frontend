@@ -20,7 +20,7 @@ class StockCard{
   renderCard(){
     // debugger
     let new_card = document.createElement("div")
-    new_card.className += "card"
+    new_card.className += "card four wide column"
     // let most_recent = data["quote"]["latestPrice"]
     new_card.innerHTML =`<h1>${this.company.name} (${this.company.symbol})</h1>
     <button data-id=${this.id}>Buy</button>

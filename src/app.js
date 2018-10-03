@@ -3,7 +3,7 @@ class App {
   constructor(user){
     this.adapter = new Adapter();
     this.handleProfileClick = this.handleProfileClick.bind(this);
-    this.handleCompanyClick = this.handleCompanyClick.bind(this);
+    // this.handleCompanyClick = this.handleCompanyClick.bind(this);
     this.handleBuyFormSubmit = this.handleBuyFormSubmit.bind(this);
     this.handleSellFormSubmit = this.handleSellFormSubmit.bind(this)
     this.createCompanies = this.createCompanies.bind(this);
@@ -11,13 +11,31 @@ class App {
     this.createStock = this.createStock.bind(this)
     this.addStock = this.addStock.bind(this)
     this.user = user
+    this.handleBuyBtn = this.handleBuyBtn.bind(this)
+    this.renderBuyForm = this.renderBuyForm.bind(this)
   }
 
   attachEventListeners() {
     document.querySelector('#sell-stock-form').addEventListener('submit', this.handleSellFormSubmit)
-    document.querySelector('#company-list').addEventListener('click', this.handleCompanyClick);
-    document.querySelector('#buy-stock-form').addEventListener('submit', this.handleBuyFormSubmit)
+    // document.querySelector('#company-list').addEventListener('click', this.handleCompanyClick);
+    document.querySelector('#confirm-buy-btn').addEventListener('click',this.handleBuyFormSubmit)
+    document.querySelector('#Buy-btn').addEventListener('click', this.handleBuyBtn)
+    // document.querySelector('#buy-stock-form').addEventListener('submit', this.handleBuyFormSubmit)
     document.querySelector('#profile').addEventListener('click', this.handleProfileClick)
+    document.querySelector("#title").addEventListener("click", ()=>{
+      $('.ui.labeled.icon.sidebar').sidebar('toggle');
+    })
+    document.querySelector("#log-in").addEventListener("click", ()=>{
+      $('#login_modal').modal('show');
+    })
+    document.querySelector("#sign-up").addEventListener("click", ()=>{
+      $('#signup_modal').modal('show');
+    })
+
+    document.querySelector("#title").addEventListener("click", ()=>{
+    $('.ui.labeled.icon.sidebar').sidebar('toggle');
+    })
+
   }
 
   createCompanies(companies){
@@ -29,30 +47,50 @@ class App {
 
   addCompanies(){
     Company.all.forEach(
-      company => (document.querySelector('#company-list').append( company.renderCompany()))
+      (company) => document.querySelector('#company-list').append( company.renderCompany())
     )
   }
 
-  handleCompanyClick(e){
-    const id = parseInt(e.target.dataset.id);
-    const company = Company.findById(id);
-    if (e.target.innerText === "Buy"){
-      document.querySelector("#buy-stock-form").innerHTML = company.renderBuyForm();
-    }
-    else if (e.target.innerText === "Sell") {
-      document.querySelector("#sell-stock-form").innerHTML = company.renderSellForm();
-    }
+  handleBuyBtn(e){
+    // debugger
+    let id = parseInt(e.target.parentElement.parentElement.parentElement.dataset.id)
+    this.renderBuyForm(id)
 
   }
 
+  renderBuyForm(id){
+    let buyForm = document.querySelector("#buy-stock-form")
+    buyForm.dataset.id = id
+    const company = Company.findById(id);
+    buyForm.querySelector(".header").innerHTML = `Buy ${company.name} (${company.symbol}) Stock`
+    buyForm.querySelector('.description').innerHTML = company.renderBuyForm();
+    $('#buy-stock-form').modal('show');
+  }
+
+  // handleCompanyClick(e){
+  //   const id = parseInt(e.target.dataset.id);
+  //   const company = Company.findById(id);
+  //   if (e.target.innerText === "Buy"){
+  //     document.querySelector("#buy-stock-form").innerHTML = company.renderBuyForm();
+  //   }
+  //   else if (e.target.innerText === "Sell") {
+  //     document.querySelector("#sell-stock-form").innerHTML = company.renderSellForm();
+  //   }
+  //
+  // }
+
   handleProfileClick(e){
-    const id = parseInt(e.target.dataset.id);
-    const stock = StockCard.findById(id);
-    const company = new Company (stock.company)
+
     if (e.target.innerText === "Buy"){
+      const id = parseInt(e.target.dataset.id);
+      const stock = StockCard.findById(id);
+      const company = new Company (stock.company)
       document.querySelector("#buy-stock-form").innerHTML = company.renderBuyForm();
     }
     else if (e.target.innerText === "Sell") {
+      const id = parseInt(e.target.dataset.id);
+      const stock = StockCard.findById(id);
+      const company = new Company (stock.company)
       document.querySelector("#sell-stock-form").innerHTML = company.renderSellForm();
     }
 
@@ -73,10 +111,10 @@ class App {
 // MUST MAKE IT SO THAT USERS WITHOUT ENOUGH BALANCE CANNOT BUY, MUST DEDUCT FROM BALANCE
   handleBuyFormSubmit(e){
     e.preventDefault();
-    const id = parseInt(e.target.dataset.id);
+    const id = parseInt(e.target.parentElement.parentElement.parentElement.dataset.id);
     const company = Company.findById(id);
     const user = this.user
-    const quantity = parseInt(e.target.querySelector('input').value);
+    const quantity = parseInt(e.target.parentElement.parentElement.querySelector('input').value);
     const buy_price = company.price
     let stocks = user.stock_cards
     debugger
@@ -91,9 +129,23 @@ class App {
     // condition in which user does not have stock, send post request
     else{
       const stock = { quantity, company_id: company.id, user_id: user.id, buy_price};
-      this.createStock(stock)
+      // if user has enough money create stock and deduct from balance
+      if(user.money > quantity*buy_price){
+        let profile = document.querySelector("#profile")
+        this.createStock(stock)
+        user.money -= quantity*buy_price
+        this.adapter.patchUser(user.id, user)
+        let balanceh3 = profile.querySelector('h3')
+        let balancediv = document.querySelector('#balance-info')
+        balanceh3.innerHTML =  `Balance: $${user.money}`
+        balancediv.innerHTML = `Balance: $${user.money}`
+        alert(`Congrats! You bought ${quantity} ${quantity > 1? 'stocks':'stock'} from ${company.name}`)
+      }
+      // else alert not enough money
+      else{
+        alert("You don't have enough money!")
+      }
     }
-    e.target.parentElement.innerHTML = ''
   }
 
 

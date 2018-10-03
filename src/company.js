@@ -25,31 +25,45 @@ class Company{
 
   renderCompany(){
 
-    // <h3>high :${data["quote"]["high"]}</h3>
-    // <h4>low :${data["quote"]["low"]}</h4>
+    let new_company = document.createElement("div")
+    new_company.className += "company-div"
+    new_company.innerHTML = `<h3>${this.name} (${this.symbol}) ---- Stock Price: $${this.price}</h3>`
+    // new_company.className += "card four wide column"
+    // new_company.innerHTML =`<h3>${this.name} (${this.symbol})</h3>
+    // <button data-id=${this.id}>Buy</button>
+    // <button data-id=${this.id}>Sell</button>
+    // <h5>Price: $${this.price}</h5>
+    // <h5>${this.description}</h5>
+    //
+    // <p>News :${this.news}</p>
+    // `
 
-    let new_card = document.createElement("div")
-    new_card.className += "card"
-    // let most_recent = data["quote"]["latestPrice"]
-    new_card.innerHTML =`<h1>${this.name} (${this.symbol})</h1>
-    <button data-id=${this.id}>Buy</button>
-    <button data-id=${this.id}>Sell</button>
-    <h3>Price: $${this.price}</h2>
-    <h3>${this.description}</h3>
+    let h = new_company.querySelector("h3")
+    h.addEventListener("click", () =>{
+      //may need to refactor this
+      let c_modal = document.querySelector("#company")
+      company.dataset.id = this.id
+      c_modal.querySelector(".header").innerHTML = `${this.name} (${this.symbol})`
+      c_modal.querySelector(".description").innerHTML =`
 
-    <p>News :${this.news}</p>
-    `
+      <br>${this.description}
+      <br>Current Price: ${this.price}
+      <br>Name: ${this.name}
+      <br>Symbol: ${this.symbol}
+      <br>Highest Price: ${this.high}
+      <br>Lowest Price: ${this.low}
+      <br>Open Price: ${this.open_price}
+      <br>Close Price: ${this.close_price}
+      <br>Latest news: ${this.news[0]['headline']}
+      `
 
-    let h1 = new_card.querySelector("h1")
-    h1.addEventListener("click", () =>{
       let graph = new Graph(this.symbol)
       graph.renderGraph()
       $('#company').modal('show');
-
     })
 
 
-    return new_card
+    return new_company
   }
 
   static findById(id){
@@ -61,14 +75,11 @@ class Company{
   renderBuyForm(){
     return `
     <form data-id=${this.id}>
-     <h1>BUY FORM</h1>
      <label>${this.name}</label>
      <p>${this.description}</p>
-     <label>Price</label>
-     <p>$${this.price}</p>
+     <p>Price: $${this.price}</p>
      <label>Quantity</label>
      <input type="number" min="1" max="10"/>
-     <button type='submit'>Buy Stock</button>
    </form>
 `;
   }

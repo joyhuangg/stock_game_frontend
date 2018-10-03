@@ -26,41 +26,69 @@
 
     <header class="ui fixed main menu">
       <div class="ui container">
-        <h1 id="title">Stocks</h1>
+        <h1 id="title">Stock Game</h1>
         <div class="right menu">
-          <div class="item">
-            <a class="ui button" id="login_button">Log in</a>
-          </div>
-          <div class="item">
-            <a class="ui primary button" id="signup_button">Sign Up</a>
+          <div id ="balance-info" class="item">
+            Balance:
           </div>
         </div>
       </div>
     </header>
 
     <main>
-      <div id="profile">
 
-      </div>
-      <div id="company-list">
-      </div>
+        <div id="profile" class="clearfix">
 
-      <div id="buy-stock-form", class="container">
-      </div>
+        </div>
+
+
+        <div id="company-list" class="ui grid clearfix">
+          <h1>Buy Stocks From Our Featured Companies!</h1>
+        </div>
+
+
+      <!-- <div class="scrollmenu">
+        <a href="#home">Home</a>
+        <a href="#news">News</a>
+        <a href="#contact">Contact</a>
+        <a href="#about">About</a>
+        <a href="#support">Support</a>
+        <a href="#blog">Blog</a>
+        <a href="#tools">Tools</a>
+        <a href="#base">Base</a>
+        <a href="#custom">Custom</a>
+        <a href="#more">More</a>
+        <a href="#logo">Logo</a>
+        <a href="#friends">Friends</a>
+        <a href="#partners">Partners</a>
+        <a href="#people">People</a>
+        <a href="#work">Work</a>
+      </div> -->
+
+      <!-- <div id="buy-stock-form", class="container">
+      </div> -->
 
       <div id="sell-stock-form", class="container">
       </div>
       <!-- sidebar -->
       <div id="sidebar" class="ui left demo vertical inverted sidebar labeled icon menu">
-        <a class="item">
-          <i class="home icon"></i>
+        <a id="home" class="item">
+          <i class="id home icon"></i>
           Home
         </a>
-        <a class="item">
-          <i class="block layout icon"></i>
-          Topics
+        <a id="log-in" class="item">
+          <i class="id badge outline icon"></i>
+          Log In
         </a>
-        <a class="item">
+        <a id="sign-up" class="item">
+          <i class="user plus icon"></i>
+          Sign Up
+        </a>
+        <a id="sign-out" class="item">
+          <i class="sign out icon"></i>
+          Sign Out
+        </a>
+        <a id="friends" class="item">
           <i class="smile icon"></i>
           Friends
         </a>
@@ -81,27 +109,48 @@
               <div class="ui header">We've auto-chosen a profile image for you.</div>
               <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
               <p>Is it okay to use this photo?</p>
-              <p>Is it okay to use this photo?</p>
-              <p>Is it okay to use this photo?</p>
-              <p>Is it okay to use this photo?</p>
-              <p>Is it okay to use this photo?</p>
-              <p>Is it okay to use this photo?</p>
-              <p>Is it okay to use this photo?</p>
-              <p>Is it okay to use this photo?</p>
             </div>
             <svg></svg>
           </div>
           <div class="actions">
             <div class="ui black deny button">
-              Nope
+              Nope?
             </div>
-            <div class="ui positive right labeled icon button">
-              Yep, that's me
+            <div id ="Buy-btn" class="ui positive right labeled icon button">
+              Buy Stock?
               <i class="checkmark icon"></i>
             </div>
           </div>
         </div>
       </div>
+
+
+      <!-- Buy modal -->
+      <div id="buy-stock-form" class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">
+        </div>
+        <div class="scrolling content">
+          <div class="image content">
+            <div class="ui medium image">
+              <img src="https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?cs=srgb&dl=beauty-bloom-blue-67636.jpg&fm=jpg">
+            </div>
+            <div class="description">
+              <div class="ui header"></div>
+            </div>
+          </div>
+          <div class="actions">
+            <div class="ui black deny button">
+              Exit
+            </div>
+            <div id ="confirm-buy-btn" class="ui positive right labeled icon button">
+              Confirm
+              <i class="checkmark icon"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       <!-- login modal -->
       <div id="login_modal" class="ui modal">
@@ -225,6 +274,9 @@
         </div>
       </div>
     </footer>
+
+    <div id="loading"></div>
+
   </body>
 
 </html>
