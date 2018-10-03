@@ -104,8 +104,8 @@ class App {
   addStock(stockObj){
     let stock = new StockCard(stockObj)
     this.user.stock_cards.push(stock)
-    let profile = document.querySelector("#profile")
-    profile.append(stock.renderCard())
+    let scrollbar = document.querySelector(".scrolling-wrapper-flexbox")
+    scrollbar.append(stock.renderCard())
   }
 
 // MUST MAKE IT SO THAT USERS WITHOUT ENOUGH BALANCE CANNOT BUY, MUST DEDUCT FROM BALANCE

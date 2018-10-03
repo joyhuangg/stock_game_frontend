@@ -25,15 +25,15 @@ main {
 
 div.card {
   background-color: #eeeeee;
-  height: 250px;
-  width: 300px;
+  height: 200px;
+  width: 175px;
   box-shadow: 10px 10px grey;
   padding: 10px;
   border-radius: 10px;
   margin: 20px;
   display: table-cell;
   border: 5px solid red;
-
+  flex: 0 0 auto;
 }
 
 p {
@@ -208,8 +208,4 @@ button.release {
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
-
-  .card {
-    flex: 0 0 auto;
-  }
 }
