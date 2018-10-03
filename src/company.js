@@ -26,6 +26,7 @@ class Company{
     h.addEventListener("click", () =>{
       //may need to refactor this
       let c_modal = document.querySelector("#company")
+      let news = this.news[0]
       company.dataset.id = this.id
       c_modal.querySelector(".header").innerHTML = `${this.name} (${this.symbol})`
       c_modal.querySelector(".description").innerHTML =`
@@ -38,8 +39,11 @@ class Company{
       <br>Lowest Price: ${this.low}
       <br>Open Price: ${this.open_price}
       <br>Close Price: ${this.close_price}
-      <br>Latest news: ${this.news[0]['headline']}
+      <br>Latest News: <a href = ${news['url']} target="_blank" >${news['headline']}</a>
+      <br>${new Date(news.datetime)}
       `
+      // c_modal.querySelector('.ui img').src = news.image
+      // debugger
 
       let graph = new Graph(this.symbol)
       graph.renderGraph()
@@ -72,7 +76,6 @@ class Company{
     return `
     <form data-id=${this.id}>
      <h1>SELL ${this.name}</h1>
-     <label>${this.name}</label>
      <p>${this.description}</p>
      <label>Price</label>
      <p>$${this.price}</p>

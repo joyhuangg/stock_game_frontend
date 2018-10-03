@@ -32,7 +32,8 @@ class User{
       <div class="scrolling-wrapper-flexbox">
       </div>
     `
-    document.querySelector("#balance-info").innerHTML = `Balance: ${this.money}`
+    let balancediv = document.querySelector('#balance-info')
+    balancediv.innerHTML = `Balance: $${this.money}`
 
     profileDiv.innerHTML += toAppend
     let scrollmenu = document.querySelector('.scrolling-wrapper-flexbox')

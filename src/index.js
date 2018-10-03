@@ -20,15 +20,31 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(() => {
 
         app.attachEventListeners();
-
         app.adapter.fetchCompanies().then(app.createCompanies)
+        // setInterval(function_to_run,1000);
+        $('.ui.search')
+          .search({
+            apiSettings: {
+              url: '//api.github.com/search/repositories?q={query}'
+            },
+            fields: {
+              results : 'items',
+              title   : 'name',
+              url     : 'html_url'
+            },
+            minCharacters : 3
+          })
+        ;
     })
 
 
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> 92d87da394f6cd40b7ae76e056047e5c09fae320
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext("2d");
     var radius = canvas.height / 2;
