@@ -18,9 +18,11 @@ class Company{
   renderCompany(){
 
     let new_company = document.createElement("div")
-    new_company.className += "company-div"
+    new_company.className += "ui icon button company-div"
+    new_company.setAttribute("style", "margin: 2px;")
     new_company.innerHTML = `<h3>${this.name} (${this.symbol}) ---- Stock Price: $${this.price}</h3>`
     let h = new_company.querySelector("h3")
+
     h.addEventListener("click", () =>{
       //may need to refactor this
       let c_modal = document.querySelector("#company")

@@ -26,11 +26,10 @@ class User{
   renderUserProfile(){
     let profileDiv = document.querySelector("#profile")
     let toAppend = `
-      <h1>Welcome ${this.name}</h1>
-      <h2>Username: ${this.username}</h2>
-      <h3>Balance: $${this.money}</h3>
+      <h1 class="ui center aligned header" style="color:white">Welcome ${this.name}</h1>
+      <h2 class="ui center aligned header" style="color:white">Username: ${this.username}</h2>
+      <h3 class="ui center aligned header" style="color:white">Balance: $${this.money}</h3>
       <div class="scrolling-wrapper-flexbox">
-
       </div>
     `
     let balancediv = document.querySelector('#balance-info')

@@ -29,6 +29,9 @@ class App {
     document.querySelector("#sign-up").addEventListener("click", ()=>{
       $('#signup_modal').modal('show');
     })
+    document.querySelector("#signup_link").addEventListener("click", ()=>{
+      $('#signup_modal').modal('show');
+    })
 
     document.querySelector("#title").addEventListener("click", ()=>{
     $('.ui.labeled.icon.sidebar').sidebar('toggle');
@@ -114,6 +117,7 @@ class App {
       let balancediv = document.querySelector('#balance-info')
       balanceh3.innerHTML =  `Balance: $${user.money}`
       balancediv.innerHTML = `Balance: $${user.money}`
+      debugger
       alert(`Congrats! You bought ${quantity} ${quantity > 1? 'stocks':'stock'} from ${company.name}`)
     }
     // else alert not enough money
