@@ -2,8 +2,7 @@ class App {
 
   constructor(user){
     this.adapter = new Adapter();
-    this.handleProfileClick = this.handleProfileClick.bind(this);
-    // this.handleCompanyClick = this.handleCompanyClick.bind(this);
+    this.renderSellForm = this.renderSellForm.bind(this);
     this.handleBuyFormSubmit = this.handleBuyFormSubmit.bind(this);
     this.handleSellFormSubmit = this.handleSellFormSubmit.bind(this)
     this.createCompanies = this.createCompanies.bind(this);
@@ -13,15 +12,17 @@ class App {
     this.user = user
     this.handleBuyBtn = this.handleBuyBtn.bind(this)
     this.renderBuyForm = this.renderBuyForm.bind(this)
+    // this.removeStockCard = this.removeStockCard.bind(this)
   }
 
   attachEventListeners() {
-    document.querySelector('#sell-stock-form').addEventListener('submit', this.handleSellFormSubmit)
+    // document.querySelector('#sell-stock-form').addEventListener('submit', this.handleSellFormSubmit)
     // document.querySelector('#company-list').addEventListener('click', this.handleCompanyClick);
     document.querySelector('#confirm-buy-btn').addEventListener('click',this.handleBuyFormSubmit)
+    document.querySelector('#confirm-sell-btn').addEventListener('click',this.handleSellFormSubmit)
     document.querySelector('#Buy-btn').addEventListener('click', this.handleBuyBtn)
     // document.querySelector('#buy-stock-form').addEventListener('submit', this.handleBuyFormSubmit)
-    document.querySelector('#profile').addEventListener('click', this.handleProfileClick)
+    document.querySelector('#profile').addEventListener('click', this.renderSellForm)
     document.querySelector("#title").addEventListener("click", ()=>{
       $('.ui.labeled.icon.sidebar').sidebar('toggle');
     })
@@ -67,31 +68,18 @@ class App {
     $('#buy-stock-form').modal('show');
   }
 
-  // handleCompanyClick(e){
-  //   const id = parseInt(e.target.dataset.id);
-  //   const company = Company.findById(id);
-  //   if (e.target.innerText === "Buy"){
-  //     document.querySelector("#buy-stock-form").innerHTML = company.renderBuyForm();
-  //   }
-  //   else if (e.target.innerText === "Sell") {
-  //     document.querySelector("#sell-stock-form").innerHTML = company.renderSellForm();
-  //   }
-  //
-  // }
+  renderSellForm(e){
 
-  handleProfileClick(e){
-
-    if (e.target.innerText === "Buy"){
+    if (e.target.innerText === "Sell") {
+      let sellForm = document.querySelector("#sell-stock-form")
       const id = parseInt(e.target.dataset.id);
+      sellForm.dataset.id = id
       const stock = StockCard.findById(id);
       const company = new Company (stock.company)
-      document.querySelector("#buy-stock-form").innerHTML = company.renderBuyForm();
-    }
-    else if (e.target.innerText === "Sell") {
-      const id = parseInt(e.target.dataset.id);
-      const stock = StockCard.findById(id);
-      const company = new Company (stock.company)
-      document.querySelector("#sell-stock-form").innerHTML = company.renderSellForm();
+      // must fetch individual company so I can check the current price and update it
+      sellForm.querySelector(".header").innerHTML = `Sell ${company.name} (${company.symbol}) Stock`
+      sellForm.querySelector('.description').innerHTML = company.renderSellForm();
+      $('#sell-stock-form').modal('show');
     }
 
   }
@@ -104,11 +92,11 @@ class App {
   addStock(stockObj){
     let stock = new StockCard(stockObj)
     this.user.stock_cards.push(stock)
-    let scrollbar = document.querySelector("#scrolling-wrapper-flexbox")
+    let scrollbar = document.querySelector(".scrolling-wrapper-flexbox")
     scrollbar.append(stock.renderCard())
   }
 
-// MUST MAKE IT SO THAT USERS WITHOUT ENOUGH BALANCE CANNOT BUY, MUST DEDUCT FROM BALANCE
+
   handleBuyFormSubmit(e){
     e.preventDefault();
     const id = parseInt(e.target.parentElement.parentElement.parentElement.dataset.id);
@@ -117,42 +105,63 @@ class App {
     const quantity = parseInt(e.target.parentElement.parentElement.querySelector('input').value);
     const buy_price = company.price
     let stocks = user.stock_cards
-    debugger
-    // condition in which user has stock already, much send patch request
-    if (this.user.hasCompany(company)){
-      this.adapter.getStockCards()
-      .then(stocks => {
-        // let stockCard = StockCard.find(function(stock) {return stock.company.id === company.id && stock.user.id === user.id})
-        debugger
-      })
-    }
-    // condition in which user does not have stock, send post request
-    else{
-      const stock = { quantity, company_id: company.id, user_id: user.id, buy_price};
-      // if user has enough money create stock and deduct from balance
-      if(user.money > quantity*buy_price){
-        let profile = document.querySelector("#profile")
+    const stock = {company_id: company.id, user_id: user.id, buy_price};
+    // if user has enough money create stock and deduct from balance
+    if(user.money > quantity*buy_price){
+      let profile = document.querySelector("#profile")
+      for (let i = 0; i < quantity; i++){
         this.createStock(stock)
-        user.money -= quantity*buy_price
-        this.adapter.patchUser(user.id, user)
-        let balanceh3 = profile.querySelector('h3')
-        let balancediv = document.querySelector('#balance-info')
-        balanceh3.innerHTML =  `Balance: $${user.money}`
-        balancediv.innerHTML = `Balance: $${user.money}`
-        alert(`Congrats! You bought ${quantity} ${quantity > 1? 'stocks':'stock'} from ${company.name}`)
       }
-      // else alert not enough money
-      else{
-        alert("You don't have enough money!")
-      }
+      user.money -= quantity*buy_price
+      this.adapter.patchUser(user.id, user)
+      let balanceh3 = profile.querySelector('h3')
+      let balancediv = document.querySelector('#balance-info')
+      balanceh3.innerHTML =  `Balance: $${user.money}`
+      balancediv.innerHTML = `Balance: $${user.money}`
+      alert(`Congrats! You bought ${quantity} ${quantity > 1? 'stocks':'stock'} from ${company.name}`)
     }
+    // else alert not enough money
+    else{
+      alert("You don't have enough money!")
+    }
+
   }
 
 
 // MUST MAKE IT SO THAT USERS WITHOUT THE STOCK CANNOT SELL, MUST HAVE IT SO THAT BALANCE GAINS MONEY
   handleSellFormSubmit(e){
     e.preventDefault();
-    debugger
+    let profile = document.querySelector("#profile")
+    const id = parseInt(e.target.parentElement.parentElement.parentElement.dataset.id);
+    const stock = StockCard.findById(id);
+    const user = this.user
+    const company = new Company (stock.company)
+
+
+
+    // get cards and find card to delete and delete it
+    let stocks = profile.querySelectorAll('.card')
+    let card;
+    for (let i = 0; i < stocks.length; i++){
+      if (parseInt(stocks[i].dataset.id) === id){
+        card = stocks[i]
+      }
+    }
+    card.remove();
+
+
+
+    // must fetch individual company so I can check the current price and update it
+    const sell_price = company.price
+    user.money += sell_price
+    this.adapter.deleteStockCard(id)
+    //took below from handleBuyForm, may refactor later
+    this.adapter.patchUser(user.id, user)
+    let balanceh3 = profile.querySelector('h3')
+    let balancediv = document.querySelector('#balance-info')
+    balanceh3.innerHTML =  `Balance: $${user.money}`
+    balancediv.innerHTML = `Balance: $${user.money}`
+    alert(`Congrats! You sold ${company.name} and gained $${sell_price}`)
 
 
     // const id = parseInt(e.target.dataset.id);
@@ -175,4 +184,5 @@ class App {
     //   // our backend responds with the updated note instance represented as JSON
     //   .then(updatedNote => console.log(updatedNote));
   }
+
 }

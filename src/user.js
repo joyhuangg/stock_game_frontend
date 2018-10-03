@@ -35,14 +35,14 @@ class User{
       <h1>Welcome ${this.name}</h1>
       <h2>Username: ${this.username}</h2>
       <h3>Balance: $${this.money}</h3>
-      <div id="scrolling-wrapper-flexbox">
+      <div class="scrolling-wrapper-flexbox">
 
       </div>
     `
 
 
     profileDiv.innerHTML += toAppend
-    let scrollmenu = document.querySelector('#scrolling-wrapper-flexbox')
+    let scrollmenu = document.querySelector('.scrolling-wrapper-flexbox')
     this.adapter.getUser(this.id)
       .then((user) => {
         user.cards.forEach(function(stock){

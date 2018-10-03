@@ -92,9 +92,6 @@ class Company{
      <p>${this.description}</p>
      <label>Price</label>
      <p>$${this.price}</p>
-     <label>Quantity</label>
-     <input type="number" min="1" max="10"/>
-     <button type='submit'>Buy Stock</button>
    </form>
 `;
   }

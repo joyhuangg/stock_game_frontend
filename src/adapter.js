@@ -97,6 +97,6 @@ class Adapter{
     return fetch(url, {
       method: 'DELETE',
       headers: this.headers
-    }).then(res => res.json());
+    })
   }
 }
