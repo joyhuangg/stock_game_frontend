@@ -16,12 +16,9 @@ class App {
   }
 
   attachEventListeners() {
-    // document.querySelector('#sell-stock-form').addEventListener('submit', this.handleSellFormSubmit)
-    // document.querySelector('#company-list').addEventListener('click', this.handleCompanyClick);
     document.querySelector('#confirm-buy-btn').addEventListener('click',this.handleBuyFormSubmit)
     document.querySelector('#confirm-sell-btn').addEventListener('click',this.handleSellFormSubmit)
     document.querySelector('#Buy-btn').addEventListener('click', this.handleBuyBtn)
-    // document.querySelector('#buy-stock-form').addEventListener('submit', this.handleBuyFormSubmit)
     document.querySelector('#profile').addEventListener('click', this.renderSellForm)
     document.querySelector("#title").addEventListener("click", ()=>{
       $('.ui.labeled.icon.sidebar').sidebar('toggle');
@@ -53,7 +50,6 @@ class App {
   }
 
   handleBuyBtn(e){
-    // debugger
     let id = parseInt(e.target.parentElement.parentElement.parentElement.dataset.id)
     this.renderBuyForm(id)
 
@@ -162,27 +158,6 @@ class App {
     balanceh3.innerHTML =  `Balance: $${user.money}`
     balancediv.innerHTML = `Balance: $${user.money}`
     alert(`Congrats! You sold ${company.name} and gained $${sell_price}`)
-
-
-    // const id = parseInt(e.target.dataset.id);
-    // const company = Company.findById(id);
-    // const quantity = parseInt(e.target.querySelector('input').value);
-    //
-    // const bodyJSON = { quantity };
-    // this.adapter.postStockCard(bodyJSON).then(newStock => console.log(newStock));
-
-    //from example
-    // fetch(`http://localhost:3000/api/v1/stock_cards/`, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     Accept: 'application/json',
-    //   },
-    //   body: JSON.stringify(bodyJSON),
-    // })
-    //   .then(res => res.json())
-    //   // our backend responds with the updated note instance represented as JSON
-    //   .then(updatedNote => console.log(updatedNote));
   }
 
 }

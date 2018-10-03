@@ -1,9 +1,3 @@
-// t.integer "user_id"
-// t.integer "company_id"
-// t.float "buy_price"
-// t.float "sell_price"
-
-
 class StockCard{
   constructor(data){
       this.id = data.id
@@ -16,11 +10,9 @@ class StockCard{
   }
 
   renderCard(){
-    // debugger
     let new_card = document.createElement("div")
     new_card.className += "card"
     new_card.dataset.id = this.id
-    // let most_recent = data["quote"]["latestPrice"]
     new_card.innerHTML =`<h1>${this.company.name} (${this.company.symbol})</h1>
     <button data-id=${this.id}>Sell</button>
     <h3>Buy Price: $${this.buy_price}</h3>

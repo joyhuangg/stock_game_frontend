@@ -1,6 +1,3 @@
-// t.string "name"
-// t.string "username"
-// t.float "money"
 
 class User{
   constructor(data){
@@ -28,9 +25,6 @@ class User{
 
   renderUserProfile(){
     let profileDiv = document.querySelector("#profile")
-          // <div id=​"scrolling-wrapper-flexbox">​
-          //
-          // ​</div>​
     let toAppend = `
       <h1>Welcome ${this.name}</h1>
       <h2>Username: ${this.username}</h2>
@@ -50,14 +44,6 @@ class User{
           scrollmenu.append(stockObj)
         })
       })
-    // this.companies.forEach(function(company){
-    //   debugger
-
-
-    //   // will be something like let stockObj = new StockCard(stock)
-    //   //then add to toAppend string
-    // })
-
   }
 
 }

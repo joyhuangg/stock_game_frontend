@@ -1,11 +1,3 @@
-// t.string "description"
-// t.float "price"
-// t.string "name"
-// t.string "symbol"
-// t.float "high"
-// t.float "low"
-// t.float "open_price"
-// t.float "close_price"
 
 class Company{
   constructor(data){
@@ -28,16 +20,6 @@ class Company{
     let new_company = document.createElement("div")
     new_company.className += "company-div"
     new_company.innerHTML = `<h3>${this.name} (${this.symbol}) ---- Stock Price: $${this.price}</h3>`
-    // new_company.className += "card four wide column"
-    // new_company.innerHTML =`<h3>${this.name} (${this.symbol})</h3>
-    // <button data-id=${this.id}>Buy</button>
-    // <button data-id=${this.id}>Sell</button>
-    // <h5>Price: $${this.price}</h5>
-    // <h5>${this.description}</h5>
-    //
-    // <p>News :${this.news}</p>
-    // `
-
     let h = new_company.querySelector("h3")
     h.addEventListener("click", () =>{
       //may need to refactor this
