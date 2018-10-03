@@ -153,7 +153,6 @@ class App {
 
     // must fetch individual company so I can check the current price and update it
     const sell_price = parseInt(company.price)
-    deubgger
     user.money += sell_price
     this.adapter.deleteStockCard(id)
     //took below from handleBuyForm, may refactor later
