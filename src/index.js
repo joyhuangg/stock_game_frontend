@@ -20,10 +20,22 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(() => {
 
         app.attachEventListeners();
-
         app.adapter.fetchCompanies().then(app.createCompanies)
+        // setInterval(function_to_run,1000);
+        $('.ui.search')
+          .search({
+            apiSettings: {
+              url: '//api.github.com/search/repositories?q={query}'
+            },
+            fields: {
+              results : 'items',
+              title   : 'name',
+              url     : 'html_url'
+            },
+            minCharacters : 3
+          })
+        ;
     })
-
 
 
 
