@@ -1,9 +1,3 @@
-// t.integer "user_id"
-// t.integer "company_id"
-// t.float "quantity"
-// t.float "buy_price"
-// t.float "sell_price"
-
 
 class StockCard{
   constructor(data){
@@ -18,15 +12,14 @@ class StockCard{
   }
 
   renderCard(){
-    // debugger
     let new_card = document.createElement("div")
     new_card.className += "card"
+    new_card.dataset.id = this.id
     new_card.innerHTML =`<div class="ui one column centered grid" style="height:200px;">
       <div class="top aligned row" style="height:50%"><h3>${this.company.name} (${this.company.symbol})</h3></div>
       <div class="middle aligned row">Buy Price: $${this.buy_price}</div>
 
         <div class="bottom aligned row" style="height:25%">
-          <button data-id=${this.id}>Buy</button>
           <button data-id=${this.id}>Sell</button>
         </div>
       </div>
