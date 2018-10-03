@@ -33,6 +33,7 @@ div.card {
   margin: 20px;
   display: table-cell;
   border: 5px solid red;
+  /* flex: 0 0 auto; */
 
 }
 
@@ -208,8 +209,9 @@ button.release {
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
-
   .card {
     flex: 0 0 auto;
   }
+
+
 }
