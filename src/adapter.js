@@ -5,6 +5,7 @@ class Adapter{
       'Content-Type': 'application/json',
       Accept: 'application/json',
     };
+
   }
 
 
@@ -36,10 +37,17 @@ class Adapter{
     Company Functionality
   */
   fetchCompanies(){
+    console.log('fetching companies')
     return this.get(`${this.baseURL}/companies`)
   }
   postCompany(body){
+    console.log(body)
     return this.post(`${this.baseURL}/companies`, body)
+  }
+
+  refreshCompanies(){
+    console.log('refreshing companies')
+    return this.get(`${this.baseURL}/refresh_companies`)
   }
 
 
@@ -68,6 +76,12 @@ class Adapter{
   getStock(symbol){
     return this.get(`https://api.iextrading.com/1.0/stock/${symbol}/batch?types=quote,news,chart`)
   }
+
+  postNews(body){
+    console.log(body)
+    return this.post(`${this.baseURL}/news`, body)
+  }
+
 
 
   /*

@@ -33,6 +33,22 @@ class StockCard{
     return this.all.find(stock => stock.id === id)
   }
 
+  renderSellForm(){
+    let company = this.company
+    this.sell_price = company.price
+    return `
+    <form data-id=${company.id}>
+     <h1>SELL ${company.name}</h1>
+     <p>${company.description}</p>
+     <label>Bought at</label>
+     <p>$${this.buy_price}</p>
+     <label>Sell Price</label>
+     <p>$${company.price}</p>
+   </form>
+`;
+  }
+
+
 }
 
 StockCard.all = []

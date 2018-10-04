@@ -18,23 +18,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         app.attachEventListeners();
         app.adapter.fetchCompanies().then(app.createCompanies).then(res => {
-          $('#loading').hide()
+          $('#loading').hide()})
+        setInterval(function() {app.adapter.refreshCompanies().then(app.createCompanies)},900000);
+
         })
-        // setInterval(function_to_run,1000);
-        // $('.ui.search')
-        //   .search({
-        //     apiSettings: {
-        //       url: '//api.github.com/search/repositories?q={query}'
-        //     },
-        //     fields: {
-        //       results : 'items',
-        //       title   : 'name',
-        //       url     : 'html_url'
-        //     },
-        //     minCharacters : 3
-        //   })
-        // ;
-    })
 
     document.querySelector(".ui.left.icon.input").addEventListener("keypress",function (e){
       var key = e.which || e.keyCode;

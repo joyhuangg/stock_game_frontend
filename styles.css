@@ -228,6 +228,11 @@ button.release {
   background: #EDECED;
 }
 
+/* #company-container{
+  background: #3C6E71;
+  color:white;
+} */
+
 .scrolling-wrapper-flexbox {
   display: flex;
   flex-wrap: nowrap;
