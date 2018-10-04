@@ -36,6 +36,7 @@ class Company{
     //may need to refactor this
     let c_modal = document.querySelector("#company")
     let news = this.news[0]
+    
     company.dataset.id = this.id
     c_modal.querySelector(".header").innerHTML = `${this.name} (${this.symbol})`
     c_modal.querySelector(".description").innerHTML =`
