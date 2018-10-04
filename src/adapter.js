@@ -36,10 +36,16 @@ class Adapter{
     Company Functionality
   */
   fetchCompanies(){
+    console.log('fetching companies')
     return this.get(`${this.baseURL}/companies`)
   }
   postCompany(body){
     return this.post(`${this.baseURL}/companies`, body)
+  }
+
+  refreshCompanies(){
+    console.log('refreshing companies')
+    return this.get(`${this.baseURL}/refresh_companies`)
   }
 
 

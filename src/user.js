@@ -4,7 +4,7 @@ class User{
     this.id = data.id
     this.name = data.name
     this.username = data.username
-    this.money = data.money
+    this.money = parseFloat(data.money)
     this.stock_cards = data.stock_cards
     this.companies = data.companies
     this.adapter = new Adapter()

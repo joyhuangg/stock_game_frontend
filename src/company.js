@@ -3,7 +3,7 @@ class Company{
   constructor(data){
     this.id = data.id
     this.description = data.description
-    this.price = data.price
+    this.price = parseFloat(data.price)
     this.name = data.name
     this.symbol = data.symbol
     this.high = data.high
@@ -11,6 +11,7 @@ class Company{
     this.news = data.news
     this.open_price = data.open_price
     this.close_price = data.close_price
+    this.updated_at = data.updated_at
     this.adapter = new Adapter()
     Company.all.push(this)
   }
@@ -20,7 +21,7 @@ class Company{
     let new_company = document.createElement("div")
     new_company.className += "ui icon button company-div"
     new_company.setAttribute("style", "margin: 2px;")
-    new_company.innerHTML = `<h3>${this.name} (${this.symbol}) ---- Stock Price: $${this.price}</h3>`
+    new_company.innerHTML = `<h3>${this.name} (${this.symbol}) ---- Stock Price: $${this.price} ---- Updated at: ${new Date(this.updated_at)}</h3>`
     let h = new_company.querySelector("h3")
 
     h.addEventListener("click", () =>{
@@ -72,16 +73,16 @@ class Company{
 `;
   }
 
-  renderSellForm(){
-    return `
-    <form data-id=${this.id}>
-     <h1>SELL ${this.name}</h1>
-     <p>${this.description}</p>
-     <label>Price</label>
-     <p>$${this.price}</p>
-   </form>
-`;
-  }
+//   renderSellForm(){
+//     return `
+//     <form data-id=${this.id}>
+//      <h1>SELL ${this.name}</h1>
+//      <p>${this.description}</p>
+//      <label>Price</label>
+//      <p>$${this.price}</p>
+//    </form>
+// `;
+//   }
 
 }
 

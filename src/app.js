@@ -12,7 +12,6 @@ class App {
     this.user = user
     this.handleBuyBtn = this.handleBuyBtn.bind(this)
     this.renderBuyForm = this.renderBuyForm.bind(this)
-    // this.removeStockCard = this.removeStockCard.bind(this)
   }
 
   attachEventListeners() {
@@ -40,13 +39,19 @@ class App {
   }
 
   createCompanies(companies){
+    console.log('creating companies...')
+    console.log('wiping company list')
+    document.querySelector('#company-list').innerHTML = ''
     companies.forEach(company => {
       const newCompany = new Company(company)
+      document.querySelector('#company-list').append( newCompany.renderCompany())
+
     })
-    this.addCompanies()
+    // this.addCompanies()
   }
 
   addCompanies(){
+    document.querySelector('#company-list').innerText = ''
     Company.all.forEach(
       (company) => document.querySelector('#company-list').append( company.renderCompany())
     )
@@ -77,7 +82,7 @@ class App {
       const company = new Company (stock.company)
       // must fetch individual company so I can check the current price and update it
       sellForm.querySelector(".header").innerHTML = `Sell ${company.name} (${company.symbol}) Stock`
-      sellForm.querySelector('.description').innerHTML = company.renderSellForm();
+      sellForm.querySelector('.description').innerHTML = stock.renderSellForm();
       $('#sell-stock-form').modal('show');
     }
 
@@ -102,7 +107,7 @@ class App {
     const company = Company.findById(id);
     const user = this.user
     const quantity = parseInt(e.target.parentElement.parentElement.querySelector('input').value);
-    const buy_price = company.price
+    const buy_price = parseFloat(company.price)
     let stocks = user.stock_cards
     const stock = {company_id: company.id, user_id: user.id, buy_price};
     // if user has enough money create stock and deduct from balance
@@ -115,9 +120,8 @@ class App {
       this.adapter.patchUser(user.id, user)
       let balanceh3 = profile.querySelector('h3')
       let balancediv = document.querySelector('#balance-info')
-      balanceh3.innerHTML =  `Balance: $${user.money}`
-      balancediv.innerHTML = `Balance: $${user.money}`
-      debugger
+      balanceh3.innerHTML =  `Balance: $${user.money.toFixed(2)}`
+      balancediv.innerHTML = `Balance: $${user.money.toFixed(2)}`
       alert(`Congrats! You bought ${quantity} ${quantity > 1? 'stocks':'stock'} from ${company.name}`)
     }
     // else alert not enough money
@@ -128,7 +132,6 @@ class App {
   }
 
 
-// MUST MAKE IT SO THAT USERS WITHOUT THE STOCK CANNOT SELL, MUST HAVE IT SO THAT BALANCE GAINS MONEY
   handleSellFormSubmit(e){
     e.preventDefault();
     let profile = document.querySelector("#profile")
@@ -151,16 +154,16 @@ class App {
 
 
 
-    // must fetch individual company so I can check the current price and update it
-    const sell_price = parseInt(company.price)
+
+    const sell_price = parseFloat(company.price)
     user.money += sell_price
     this.adapter.deleteStockCard(id)
     //took below from handleBuyForm, may refactor later
     this.adapter.patchUser(user.id, user)
     let balanceh3 = profile.querySelector('h3')
     let balancediv = document.querySelector('#balance-info')
-    balanceh3.innerHTML =  `Balance: $${user.money}`
-    balancediv.innerHTML = `Balance: $${user.money}`
+    balanceh3.innerHTML =  `Balance: $${user.money.toFixed(2)}`
+    balancediv.innerHTML = `Balance: $${user.money.toFixed(2)}`
     alert(`Congrats! You sold ${company.name} and gained $${sell_price}`)
   }
 
