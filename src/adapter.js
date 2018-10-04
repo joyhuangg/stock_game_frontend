@@ -74,7 +74,14 @@ class Adapter{
     GENERAL FUNCTIONALITY
   */
   get(url) {
-    return fetch(url).then(res => res.json());
+    return fetch(url).then(res => {
+      if(res.status >= 200 && res.status <= 299){
+        return res.json()
+      }
+      else{
+        return res.status
+      }
+    });
   }
 
   post(url, body) {

@@ -1,6 +1,3 @@
-$(window).ready(function() {
-  $('#loading').hide();
-});
 
 document.addEventListener('DOMContentLoaded', () => {
   let app
@@ -20,23 +17,58 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(() => {
 
         app.attachEventListeners();
-        app.adapter.fetchCompanies().then(app.createCompanies)
+        app.adapter.fetchCompanies().then(app.createCompanies).then(res => {
+          $('#loading').hide()
+        })
         // setInterval(function_to_run,1000);
-        $('.ui.search')
-          .search({
-            apiSettings: {
-              url: '//api.github.com/search/repositories?q={query}'
-            },
-            fields: {
-              results : 'items',
-              title   : 'name',
-              url     : 'html_url'
-            },
-            minCharacters : 3
-          })
-        ;
+        // $('.ui.search')
+        //   .search({
+        //     apiSettings: {
+        //       url: '//api.github.com/search/repositories?q={query}'
+        //     },
+        //     fields: {
+        //       results : 'items',
+        //       title   : 'name',
+        //       url     : 'html_url'
+        //     },
+        //     minCharacters : 3
+        //   })
+        // ;
     })
 
+    document.querySelector(".ui.left.icon.input").addEventListener("keypress",function (e){
+      var key = e.which || e.keyCode;
+      if (key === 13) { // 13 is enter
+        // code for enter
+        app.adapter.getStock(e.target.value).then(res => {
+          //may need to refactor this
+          if(res > 0){
+            alert("input not a company symbol!")
+          }
+          else{
+            let c_modal = document.querySelector("#company")
+            app.createCompany(res).then((e) => {
+              let newCom = new Company(e)
+              let com_list = document.querySelector('#company-list')
+              let found = Company.all.find(element =>{
+                return element == newCom
+              })
+              if (!found){
+                com_list.append(newCom.renderCompany())
+              }
+              newCom.renderCompanyModal()
+            })
+          }
+        })
+      }
+    })
+    document.querySelector("#home").addEventListener("click", ()=>{
+      alert("Work in progress...")
+    })
+
+    document.querySelector("#friends").addEventListener("click", ()=>{
+      alert("you got no friends...")
+    })
 
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext("2d");

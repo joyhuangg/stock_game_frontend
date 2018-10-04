@@ -11,6 +11,7 @@ class Company{
     this.news = data.news
     this.open_price = data.open_price
     this.close_price = data.close_price
+    this.renderCompanyModal = this.renderCompanyModal.bind(this)
     this.adapter = new Adapter()
     Company.all.push(this)
   }
@@ -24,34 +25,38 @@ class Company{
     let h = new_company.querySelector("h3")
 
     h.addEventListener("click", () =>{
-      //may need to refactor this
-      let c_modal = document.querySelector("#company")
-      let news = this.news[0]
-      company.dataset.id = this.id
-      c_modal.querySelector(".header").innerHTML = `${this.name} (${this.symbol})`
-      c_modal.querySelector(".description").innerHTML =`
-
-      <br>${this.description}
-      <br>Current Price: ${this.price}
-      <br>Name: ${this.name}
-      <br>Symbol: ${this.symbol}
-      <br>Highest Price: ${this.high}
-      <br>Lowest Price: ${this.low}
-      <br>Open Price: ${this.open_price}
-      <br>Close Price: ${this.close_price}
-      <br>Latest News: <a href = ${news['url']} target="_blank" >${news['headline']}</a>
-      <br>${new Date(news.datetime)}
-      `
-      // c_modal.querySelector('.ui img').src = news.image
-      // debugger
-
-      let graph = new Graph(this.symbol)
-      graph.renderGraph()
-      $('#company').modal('show');
+      this.renderCompanyModal()
     })
 
 
     return new_company
+  }
+
+  renderCompanyModal(){
+    //may need to refactor this
+    let c_modal = document.querySelector("#company")
+    let news = this.news[0]
+    company.dataset.id = this.id
+    c_modal.querySelector(".header").innerHTML = `${this.name} (${this.symbol})`
+    c_modal.querySelector(".description").innerHTML =`
+
+    <br>${this.description}
+    <br>Current Price: ${this.price}
+    <br>Name: ${this.name}
+    <br>Symbol: ${this.symbol}
+    <br>Highest Price: ${this.high}
+    <br>Lowest Price: ${this.low}
+    <br>Open Price: ${this.open_price}
+    <br>Close Price: ${this.close_price}
+    <br>Latest News: <a href = ${news['url']} target="_blank" >${news['headline']}</a>
+    <br>${new Date(news.datetime)}
+    `
+    // c_modal.querySelector('.ui img').src = news.image
+    // debugger
+
+    let graph = new Graph(this.symbol)
+    graph.renderGraph()
+    $('#company').modal('show');
   }
 
   static findById(id){
