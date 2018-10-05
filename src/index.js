@@ -1,8 +1,8 @@
 
 
 var user;
+var app;
 document.addEventListener('DOMContentLoaded', () => {
-  let app
   let companyList = document.querySelector("#company-list")
   let profile = document.querySelector("#profile")
   let sidebar = document.querySelector('#sidebar')
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (user){
     //SWAP THIS OUT LATER WITH SIGNED IN USERS
-    User.findByUsername("Dummy")
+    User.findByUsername(`${user.username}`)
       .then((foundUser) => {
         let user = new User(foundUser)
         user.renderUserProfile();
@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
       })
   }
 
-    // .then(() => {
         app = new App(user)
         app.attachEventListeners();
         app.adapter.fetchCompanies().then(app.createCompanies).then(res => {
@@ -32,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // setInterval(function() {app.adapter.refreshCompanies().then(app.createCompanies)}, 60000);
         setInterval(function() {app.adapter.refreshCompanies().then(app.createCompanies)}, 300000);
 
-        // })
 
     document.querySelector(".ui.left.icon.input").addEventListener("keypress",function (e){
       var key = e.which || e.keyCode;
@@ -60,6 +58,10 @@ document.addEventListener('DOMContentLoaded', () => {
         })
       }
     })
+
+
+
+
     document.querySelector("#home").addEventListener("click", ()=>{
       alert("Work in progress...")
     })
