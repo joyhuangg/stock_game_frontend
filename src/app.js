@@ -78,6 +78,7 @@ class App {
     let username = inputs[0].querySelector('.input').querySelector('input').value
     User.findByUsername(username)
       .then((userObj) => {
+        debugger
         this.user = new User(userObj)
         this.user.renderUserProfile()
       })
