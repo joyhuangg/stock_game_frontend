@@ -37,9 +37,9 @@ class User{
 
     //should refactor this so that just the money area of the user profile re-renders so that i can just call it in app when i handle sell and buy changes
     let toAppend = `
-      <h1 class="ui center aligned header" style="color:white">Welcome ${this.name}</h1>
-      <h3 class="ui center aligned header" style="color:white">Balance: $${this.money.toFixed(2)}</h3>
-      <h3 id="portfolio-area" class="ui center aligned header" style="color:white">Total Portfolio Value: $${portfolioVal}</h3>
+      <h1 class="ui center aligned header" >Welcome ${this.name}</h1>
+      <h3 class="ui center aligned header" >Balance: $${this.money.toFixed(2)}</h3>
+      <h3 id="portfolio-area" class="ui center aligned header">Total Portfolio Value: $${portfolioVal}</h3>
       <div class="scrolling-wrapper-flexbox">
       </div>
     `

@@ -5,6 +5,7 @@ class Adapter{
       'Content-Type': 'application/json',
       Accept: 'application/json',
     };
+
   }
 
 
@@ -40,6 +41,7 @@ class Adapter{
     return this.get(`${this.baseURL}/companies`)
   }
   postCompany(body){
+    console.log(body)
     return this.post(`${this.baseURL}/companies`, body)
   }
 
@@ -75,12 +77,25 @@ class Adapter{
     return this.get(`https://api.iextrading.com/1.0/stock/${symbol}/batch?types=quote,news,chart`)
   }
 
+  postNews(body){
+    console.log(body)
+    return this.post(`${this.baseURL}/news`, body)
+  }
+
+
 
   /*
     GENERAL FUNCTIONALITY
   */
   get(url) {
-    return fetch(url).then(res => res.json());
+    return fetch(url).then(res => {
+      if(res.status >= 200 && res.status <= 299){
+        return res.json()
+      }
+      else{
+        return res.status
+      }
+    });
   }
 
   post(url, body) {

@@ -139,6 +139,26 @@ class App {
 
   }
 
+
+
+  createCompany(data){
+    return this.adapter.postCompany({company : {
+      description: data['quote']['sector'],
+      price: data['quote']['latestPrice'],
+      name: data['quote']['companyName'],
+      symbol: data['quote']['symbol'],
+      high: data['quote']['high'],
+      low: data['quote']['low'],
+      open_price: data['quote']['open'],
+      close_price: data['quote']['close'],
+    }}).then(res => {
+      const news = data['news'][0]
+      news.company_id = res.id
+      return this.adapter.postNews({ news })
+    })
+
+  }
+
   createStock(stock){
     this.adapter.postStockCard(stock)
     .then(this.addStock);
@@ -203,7 +223,6 @@ class App {
         card = stocks[i]
       }
     }
-    card.remove();
 
 
 
@@ -215,6 +234,8 @@ class App {
     user.renderUserProfile()
 
     alert(`Congrats! You sold ${company.name} and gained $${sell_price}`)
+
+    card.remove();
   }
 
 }
