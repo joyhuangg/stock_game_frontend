@@ -9,9 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let buyForm = document.querySelector("#buy-stock-form")
   let sellForm = document.querySelector("#sell-stock-form")
 
-
+  //if user logged in
   if (user){
-    //SWAP THIS OUT LATER WITH SIGNED IN USERS
     User.findByUsername(`${user.username}`)
       .then((foundUser) => {
         let user = new User(foundUser)
@@ -29,7 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         //if want to test, refresh companies more often, this refreshes every minute
         // setInterval(function() {app.adapter.refreshCompanies().then(app.createCompanies)}, 60000);
-        setInterval(function() {app.adapter.refreshCompanies().then(app.createCompanies)}, 300000);
+        //refreshes every 5 minutes
+        // setInterval(function() {app.adapter.refreshCompanies().then(app.createCompanies)}, 300000);
+        //every 3 minutes
+        setInterval(function() {app.adapter.refreshCompanies().then(app.createCompanies)}, 180000);
 
 
     document.querySelector(".ui.left.icon.input").addEventListener("keypress",function (e){
