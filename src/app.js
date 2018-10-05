@@ -16,6 +16,7 @@ class App {
     this.handleSignUpSubmit = this.handleSignUpSubmit.bind(this)
     this.signUserOut = this.signUserOut.bind(this)
     this.renderLogInForm = this.renderLogInForm.bind(this)
+    this.handleLogInSubmit = this.handleLogInSubmit.bind(this)
   }
 
   attachEventListeners() {
