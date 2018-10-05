@@ -25,15 +25,26 @@ class User{
 
   renderUserProfile(){
     let profileDiv = document.querySelector("#profile")
+    profileDiv.innerHTML = ''
+    //Add up stock value
+    let stockVal = 0
+    this.stock_cards.forEach(function (stock_card){
+      let buyPrice = parseFloat(stock_card.buy_price)
+      stockVal += buyPrice
+    })
+    //total portfolio
+    let portfolioVal = (this.money + stockVal).toFixed(2)
+
+    //should refactor this so that just the money area of the user profile re-renders so that i can just call it in app when i handle sell and buy changes
     let toAppend = `
       <h1 class="ui center aligned header" style="color:white">Welcome ${this.name}</h1>
-      <h2 class="ui center aligned header" style="color:white">Username: ${this.username}</h2>
-      <h3 class="ui center aligned header" style="color:white">Balance: $${this.money}</h3>
+      <h3 class="ui center aligned header" style="color:white">Balance: $${this.money.toFixed(2)}</h3>
+      <h3 id="portfolio-area" class="ui center aligned header" style="color:white">Total Portfolio Value: $${portfolioVal}</h3>
       <div class="scrolling-wrapper-flexbox">
       </div>
     `
     let balancediv = document.querySelector('#balance-info')
-    balancediv.innerHTML = `Balance: $${this.money}`
+    balancediv.innerHTML = `Balance: $${this.money.toFixed(2)}`
 
     profileDiv.innerHTML += toAppend
     let scrollmenu = document.querySelector('.scrolling-wrapper-flexbox')

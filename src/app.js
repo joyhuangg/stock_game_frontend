@@ -12,6 +12,10 @@ class App {
     this.user = user
     this.handleBuyBtn = this.handleBuyBtn.bind(this)
     this.renderBuyForm = this.renderBuyForm.bind(this)
+    this.renderSignUpForm = this.renderSignUpForm.bind(this)
+    this.handleSignUpSubmit = this.handleSignUpSubmit.bind(this)
+    this.signUserOut = this.signUserOut.bind(this)
+    this.renderLogInForm = this.renderLogInForm.bind(this)
   }
 
   attachEventListeners() {
@@ -19,14 +23,13 @@ class App {
     document.querySelector('#confirm-sell-btn').addEventListener('click',this.handleSellFormSubmit)
     document.querySelector('#Buy-btn').addEventListener('click', this.handleBuyBtn)
     document.querySelector('#profile').addEventListener('click', this.renderSellForm)
+    document.querySelector("#sign-up").addEventListener("click", this.renderSignUpForm)
+    document.querySelector('#signup_modal form .stacked .button').addEventListener('click', this.handleSignUpSubmit)
+    document.querySelector('#sign-out').addEventListener('click', this.signUserOut)
+    document.querySelector("#log-in").addEventListener("click", this.renderLogInForm)
+    document.querySelector('#login_modal form .stacked .button').addEventListener('click', this.handleLogInSubmit)
     document.querySelector("#title").addEventListener("click", ()=>{
       $('.ui.labeled.icon.sidebar').sidebar('toggle');
-    })
-    document.querySelector("#log-in").addEventListener("click", ()=>{
-      $('#login_modal').modal('show');
-    })
-    document.querySelector("#sign-up").addEventListener("click", ()=>{
-      $('#signup_modal').modal('show');
     })
     document.querySelector("#signup_link").addEventListener("click", ()=>{
       $('#signup_modal').modal('show');
@@ -36,6 +39,54 @@ class App {
     $('.ui.labeled.icon.sidebar').sidebar('toggle');
     })
 
+  }
+
+  signUserOut(e){
+    $('.ui.labeled.icon.sidebar').sidebar('toggle');
+    this.user = undefined
+    let profileDiv = document.querySelector("#profile")
+    profileDiv.innerHTML = ''
+  }
+
+  renderSignUpForm(e){
+    $('#signup_modal').modal('show');
+  }
+
+  handleSignUpSubmit(e){
+    let inputs = e.target.parentNode.children
+    let name = inputs[0].querySelector('.input').querySelector('input').value
+    let username = inputs[1].querySelector('.input').querySelector('input').value
+    this.adapter.postUser({name,username,money:1000})
+      .then((userObj) => {
+        this.user = new User(userObj)
+        this.user.renderUserProfile()
+      })
+    inputs[0].querySelector('.input').querySelector('input').value = ''
+    inputs[1].querySelector('.input').querySelector('input').value = ''
+    $('#signup_modal').modal('hide');
+    $('.ui.labeled.icon.sidebar').sidebar('toggle');
+    //should redirect to signing in the user that just signed up and show their info
+
+  }
+
+  renderLogInForm(e){
+    $('#login_modal').modal('show');
+  }
+
+  handleLogInSubmit(e){
+    let inputs = e.target.parentNode.children
+    let username = inputs[0].querySelector('.input').querySelector('input').value
+    User.findByUsername(username)
+      .then((userObj) => {
+        this.user = new User(userObj)
+        this.user.renderUserProfile()
+      })
+      .catch(() => {
+        alert('Not a valid username')
+      })
+    inputs[0].querySelector('.input').querySelector('input').value = ''
+    $('#login_modal').modal('hide');
+    $('.ui.labeled.icon.sidebar').sidebar('toggle');
   }
 
   createCompanies(companies){
@@ -68,7 +119,7 @@ class App {
     buyForm.dataset.id = id
     const company = Company.findById(id);
     buyForm.querySelector(".header").innerHTML = `Buy ${company.name} (${company.symbol}) Stock`
-    buyForm.querySelector('.description').innerHTML = company.renderBuyForm();
+    buyForm.querySelector('.description').innerHTML = `Available Balance: ${this.user.money}</br>` + company.renderBuyForm();
     $('#buy-stock-form').modal('show');
   }
 
@@ -117,11 +168,13 @@ class App {
         this.createStock(stock)
       }
       user.money -= quantity*buy_price
+
       this.adapter.patchUser(user.id, user)
-      let balanceh3 = profile.querySelector('h3')
-      let balancediv = document.querySelector('#balance-info')
-      balanceh3.innerHTML =  `Balance: $${user.money.toFixed(2)}`
-      balancediv.innerHTML = `Balance: $${user.money.toFixed(2)}`
+        .then((updatedUser) => {
+
+            user.renderUserProfile()
+          })
+
       alert(`Congrats! You bought ${quantity} ${quantity > 1? 'stocks':'stock'} from ${company.name}`)
     }
     // else alert not enough money
@@ -158,12 +211,9 @@ class App {
     const sell_price = parseFloat(company.price)
     user.money += sell_price
     this.adapter.deleteStockCard(id)
-    //took below from handleBuyForm, may refactor later
     this.adapter.patchUser(user.id, user)
-    let balanceh3 = profile.querySelector('h3')
-    let balancediv = document.querySelector('#balance-info')
-    balanceh3.innerHTML =  `Balance: $${user.money.toFixed(2)}`
-    balancediv.innerHTML = `Balance: $${user.money.toFixed(2)}`
+    user.renderUserProfile()
+
     alert(`Congrats! You sold ${company.name} and gained $${sell_price}`)
   }
 

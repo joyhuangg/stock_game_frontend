@@ -2,6 +2,8 @@ $(window).ready(function() {
   $('#loading').hide();
 });
 
+
+var user;
 document.addEventListener('DOMContentLoaded', () => {
   let app
   let companyList = document.querySelector("#company-list")
@@ -10,19 +12,31 @@ document.addEventListener('DOMContentLoaded', () => {
   let buyForm = document.querySelector("#buy-stock-form")
   let sellForm = document.querySelector("#sell-stock-form")
 
-  //SWAP THIS OUT LATER WITH SIGNED IN USERS
-  User.findByUsername("Dummy")
-    .then((foundUser) => {
-      let user = new User(foundUser)
-      user.renderUserProfile();
-      app = new App(user)
-    })
-    .then(() => {
 
+  if (user){
+    //SWAP THIS OUT LATER WITH SIGNED IN USERS
+    User.findByUsername("Dummy")
+      .then((foundUser) => {
+        let user = new User(foundUser)
+        user.renderUserProfile();
+        console.log('user rendered')
+      })
+  }
+
+    // .then(() => {
+        app = new App(user)
         app.attachEventListeners();
+        console.log('fetching companies')
         app.adapter.fetchCompanies().then(app.createCompanies)
         //refreshing companies list every 15 minutes
-        setInterval(function() {app.adapter.refreshCompanies().then(app.createCompanies)},900000);
+        // setInterval(function() {app.adapter.refreshCompanies().then(app.createCompanies)},900000);
+
+        //if want to test, refresh companies more often, this refreshes every minute
+        // setInterval(function() {app.adapter.refreshCompanies().then(app.createCompanies)}, 60000);
+        setInterval(function() {app.adapter.refreshCompanies().then(app.createCompanies)}, 300000);
+
+
+
         $('.ui.search')
           .search({
             apiSettings: {
@@ -128,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-    })
+    // }) //end of .then wrapping all of what to do after getting user
 
 
 
