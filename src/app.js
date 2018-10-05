@@ -47,6 +47,9 @@ class App {
     this.user = undefined
     let profileDiv = document.querySelector("#profile")
     profileDiv.innerHTML = ''
+    $('#log-in').show()
+    $('#sign-up').show()
+    $('#sign-out').hide()
   }
 
   renderSignUpForm(e){
@@ -62,12 +65,17 @@ class App {
         this.user = new User(userObj)
         this.user.renderUserProfile()
       })
+      .catch(() => {
+        alert("User exists please enter a new one or login!")
+      })
     inputs[0].querySelector('.input').querySelector('input').value = ''
     inputs[1].querySelector('.input').querySelector('input').value = ''
     $('#signup_modal').modal('hide');
     $('.ui.labeled.icon.sidebar').sidebar('toggle');
     //should redirect to signing in the user that just signed up and show their info
-
+    $('#log-in').hide()
+    $('#sign-up').hide()
+    $('#sign-out').show()
   }
 
   renderLogInForm(e){
@@ -88,6 +96,10 @@ class App {
     inputs[0].querySelector('.input').querySelector('input').value = ''
     $('#login_modal').modal('hide');
     $('.ui.labeled.icon.sidebar').sidebar('toggle');
+
+    $('#log-in').hide()
+    $('#sign-up').hide()
+    $('#sign-out').show()
   }
 
   createCompanies(companies){
