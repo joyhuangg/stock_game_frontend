@@ -62,6 +62,9 @@ class App {
         this.user = new User(userObj)
         this.user.renderUserProfile()
       })
+      .catch(() => {
+        alert("User exists please enter a new one or login!")
+      })
     inputs[0].querySelector('.input').querySelector('input').value = ''
     inputs[1].querySelector('.input').querySelector('input').value = ''
     $('#signup_modal').modal('hide');
@@ -79,7 +82,6 @@ class App {
     let username = inputs[0].querySelector('.input').querySelector('input').value
     User.findByUsername(username)
       .then((userObj) => {
-        debugger
         this.user = new User(userObj)
         this.user.renderUserProfile()
       })
