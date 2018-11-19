@@ -1,10 +1,7 @@
 class Adapter{
   constructor(){
-    this.baseURL = 'https://stock-game-backend.herokuapp.com/api/v1';
-    this.headers = {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    };
+    // this.baseURL = 'https://stock-game-backend.herokuapp.com/api/v1';
+    this.baseURL = 'http://localhost:3000/api/v1'
 
   }
 
@@ -88,20 +85,17 @@ class Adapter{
     GENERAL FUNCTIONALITY
   */
   get(url) {
-    return fetch(url).then(res => {
-      if(res.status >= 200 && res.status <= 299){
-        return res.json()
-      }
-      else{
-        return res.status
-      }
-    });
+    return fetch(url)
+    .then(res => res.json())
   }
 
   post(url, body) {
     return fetch(url, {
       method: 'POST',
-      headers: this.headers,
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
       body: JSON.stringify(body),
     }).then(res => res.json());
   }
@@ -109,7 +103,10 @@ class Adapter{
   patch(url, body) {
     return fetch(url, {
       method: 'PATCH',
-      headers: this.headers,
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
       body: JSON.stringify(body),
     }).then(res => res.json());
   }
@@ -117,7 +114,10 @@ class Adapter{
   delete(url){
     return fetch(url, {
       method: 'DELETE',
-      headers: this.headers
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      }
     })
   }
 }
