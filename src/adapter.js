@@ -1,7 +1,7 @@
 class Adapter{
   constructor(){
-    // this.baseURL = 'https://stock-game-backend.herokuapp.com/api/v1';
-    this.baseURL = 'http://localhost:3000/api/v1'
+    this.baseURL = 'https://stock-game-backend.herokuapp.com/api/v1';
+    // this.baseURL = 'http://localhost:3000/api/v1'
 
   }
 
