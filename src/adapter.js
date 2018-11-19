@@ -1,6 +1,6 @@
 class Adapter{
   constructor(){
-    this.baseURL = 'https://stock-game-backend.herokuapp.com/api/v1';
+    this.baseURL = 'https://stock-game-backend.herokuapp.com/';
     this.headers = {
       'Content-Type': 'application/json',
       Accept: 'application/json',
