@@ -10,6 +10,7 @@ class App {
     this.createStock = this.createStock.bind(this)
     this.addStock = this.addStock.bind(this)
     this.user = user
+    this.handleClick = this.handleClick.bind(this)
     this.handleBuyBtn = this.handleBuyBtn.bind(this)
     this.renderBuyForm = this.renderBuyForm.bind(this)
     this.renderSignUpForm = this.renderSignUpForm.bind(this)
@@ -20,6 +21,7 @@ class App {
   }
 
   attachEventListeners() {
+    document.querySelector('.deny').addEventListener('click', this.handleClick)
     document.querySelector('#confirm-buy-btn').addEventListener('click',this.handleBuyFormSubmit)
     document.querySelector('#confirm-sell-btn').addEventListener('click',this.handleSellFormSubmit)
     document.querySelector('#Buy-btn').addEventListener('click', this.handleBuyBtn)
@@ -50,6 +52,10 @@ class App {
     $('#log-in').show()
     $('#sign-up').show()
     $('#sign-out').hide()
+  }
+
+  handleClick(e){
+    $('#company').modal('hide');
   }
 
   renderSignUpForm(e){
@@ -123,8 +129,12 @@ class App {
 
   handleBuyBtn(e){
     let id = parseInt(e.target.parentElement.parentElement.parentElement.dataset.id)
-    this.renderBuyForm(id)
-
+    if (this.user === undefined){
+      alert("LOG IN OR SIGN UP TO BUY STOCKS")
+    }
+    else{
+      this.renderBuyForm(id)
+    }
   }
 
   renderBuyForm(id){
